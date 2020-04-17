@@ -10,7 +10,7 @@ if len(sys.argv) != 3:
 
 
 def main(input_path, output_path):
-    with open(input_path, 'r') as input_file, open(output_path, 'a') as output_file:
+    with open(input_path, 'r') as input_file, open(output_path, 'w') as output_file:
         output_json = []
         for username in input_file.readlines():
             # send a request for each username

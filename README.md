@@ -17,4 +17,4 @@ python3 enum_telegram_usernames.py input_file output_file
 
 ## Demo
 
-![Demo](https://imgur.com/LoLbNni)
+![Demo](https://i.imgur.com/LQGLFJa.gif)

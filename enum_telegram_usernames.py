@@ -23,11 +23,11 @@ def main(input_path, output_path):
                 tele_type = ''
                 description = soup.find(
                     "meta", property="og:description")["content"]
-                name = soup.find("meta", property="og:title")["content"]
-                print(f"name: {name}")
                 # check if the username is a group or a user
                 if f"You can contact @{username} right away." == description:
+                    name = soup.find("meta", property="og:title")["content"]
                     tele_type = "user"
+                    print(f"name: {name}")
                     print(f"valid user: {username}")
                     output_json.append(
                         {
@@ -37,18 +37,22 @@ def main(input_path, output_path):
                         }
                     )
                 else:
-                    tele_type = "group"
-                    print(f"valid group: {username}")
-                    group_url = URL + username
-                    print(f"group url: {group_url}")
-                    output_json.append(
-                        {
-                            "name": name,
-                            "username": username,
-                            "groupUrl": group_url,
-                            "type": tele_type
-                        }
-                    )
+                    is_group = soup.find("div", class_="tgme_page_title")
+                    if is_group:
+                        name = soup.find("meta", property="og:title")["content"]
+                        tele_type = "group"
+                        print(f"valid group: {username}")
+                        print(f"name: {name}")
+                        group_url = URL + username
+                        print(f"group url: {group_url}")
+                        output_json.append(
+                            {
+                                "name": name,
+                                "username": username,
+                                "groupUrl": group_url,
+                                "type": tele_type
+                            }
+                        )
         # write output to file as json
         json.dump(output_json, output_file, indent=4)
 
